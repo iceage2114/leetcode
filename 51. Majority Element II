@@ -1,0 +1,24 @@
+"""
+Feb 20
+51. Majority Element II (n/3)
+Write a function solve that finds all elements that appear more than n/3 times in an array.
+
+Example:
+Input: [3,2,3]
+Output: [3] 
+"""
+def solve(nums):
+  freq = {}
+  toReturn = []
+  
+  for i in nums:
+    if i in freq:
+      freq[i] = freq[i] + 1
+    else:
+      freq[i] = 1
+
+  for i in freq:
+    if freq[i] > (len(nums) / 3):
+      toReturn.append(i)
+
+  return toReturn
