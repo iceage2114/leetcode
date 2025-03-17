@@ -1,0 +1,21 @@
+"""
+March 17 2025
+Easy week
+76. Find the Maximum of Three Numbers
+95%
+1:02
+Write a function solve that finds the maximum of three numbers.
+
+Example:
+Input: (3, 7, 5)
+Output: 7 
+"""
+
+def solve(a, b, c):
+  largest = a
+  if b > largest:
+    largest = b
+  if c > largest:
+    largest = c
+
+  return largest
