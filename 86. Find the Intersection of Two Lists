@@ -1,0 +1,24 @@
+"""
+86. Find the Intersection of Two Lists
+Write a function solve that finds the intersection of two lists (elements that appear in both lists), and returns a sorted list of these elements.
+
+Example:
+Input: [1, 2, 3] and [2, 3, 4]
+Output: [2, 3] 
+"""
+def solve(list1, list2):
+  toReturn = []
+  dict = {}
+  
+  for i in list1:
+    dict[i] = 0
+
+  for i in list2:
+    if i in dict:
+      dict[i] = 1
+
+  for i in dict:
+    if dict[i] == 1:
+      toReturn.append(i)
+
+  return toReturn
