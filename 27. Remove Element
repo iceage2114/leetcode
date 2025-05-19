@@ -1,0 +1,15 @@
+def removeElement(nums, val):
+    idx = 0
+    
+    for i in range(len(nums)):
+        if nums[i] != val:
+            nums[idx] = nums[i]
+            idx += 1
+    
+    return idx
+
+nums = [3, 2, 2, 3]
+val = 3
+h = removeElement(nums, val)
+print(nums)
+print(h)
