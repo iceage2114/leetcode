@@ -1,0 +1,19 @@
+def majorityElement(nums):
+    
+    dict = {}
+
+    for i in range(len(nums)):
+        if dict.get(nums[i]) == None:
+            dict[nums[i]] = 1
+        else:
+            dict[nums[i]] = dict[nums[i]] + 1
+        
+        if dict[nums[i]] > len(nums) / 2:
+            return nums[i]
+    
+    return -1
+
+
+nums = [3, 3, 4]
+h = majorityElement(nums)
+print(h)
