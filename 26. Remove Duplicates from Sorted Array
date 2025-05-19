@@ -1,0 +1,18 @@
+def removeDuplicates(nums):
+    idx = 0
+
+    for i in range(1, len(nums)):
+        if nums[i] > nums[idx]:
+            idx += 1
+            nums[idx] = nums[i]
+        elif nums[i] == nums[idx]:
+            continue
+        elif nums[i] < nums[idx]:
+            idx += 1
+
+    return idx + 1
+
+nums = [1, 1, 2]
+h = removeDuplicates(nums)
+print(nums)
+print(h)
