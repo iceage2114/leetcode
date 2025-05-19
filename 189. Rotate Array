@@ -1,0 +1,48 @@
+def rotate(nums, k):
+    toReturn = []
+    for i in range(0, len(nums)):
+        shift = (i - k + len(nums)) % len(nums)
+        toReturn.append(nums[shift])
+
+    for i in range(len(toReturn)):
+        nums[i] = toReturn[i]
+
+def rotate2(nums, k):
+    length = len(nums)
+    length = int(length)
+    length /= 2
+    
+    for i in range(int(length)):
+        tempi = len(nums) - 1 - i
+        temp = nums[tempi]
+        nums[tempi] = nums[i]
+        nums[i] = temp
+
+    for i in range(int(k / 2)):
+        tempi = k - 1 - i
+        temp = nums[tempi]
+        nums[tempi] = nums[i]
+        nums[i] = temp
+
+    length = len(nums)
+    length = int(length)
+    length = length - (length - k) / 2
+
+    for i in range(k, int(length)):
+        tempi = len(nums) - (i - k) - 1
+        temp = nums[tempi]
+        nums[tempi] = nums[i]
+        nums[i] = temp
+
+
+nums = [-1,-100,3,99]
+#       3,99,-1,-100
+k = 2
+rotate(nums, k)
+#print(nums)
+
+nums = [1,2,3,4,5,6,7]
+#       5,6,7,1,2,3,4
+k = 3
+rotate2(nums, k)
+print(nums)
