@@ -12,6 +12,20 @@ def removeDuplicates(nums):
 
     return idx + 1
 
+def removeDuplicates2(nums):
+
+    idx = 0
+    pivot = nums[0]
+    
+    for i in range(1, len(nums)):
+        if nums[i] != pivot:
+            idx += 1
+            pivot = nums[i]
+            swap(nums, idx, i)
+
+    print(nums)
+    return idx + 1
+
 nums = [1, 1, 2]
 h = removeDuplicates(nums)
 print(nums)
