@@ -1,0 +1,70 @@
+def isValidSudoku(board):
+    current = set()
+    
+    for row in board:
+        for i in row:
+            if i == ".":
+                pass
+            elif i in current:
+                return False
+            else:
+                current.add(i)
+
+        current = set()
+
+    
+    for column in range(len(board[0])):
+        for row in board:
+            if row[column] == ".":
+                pass
+            elif row[column] in current:
+                return False
+            else:
+                current.add(row[column])
+
+        current = set()
+
+    for i in range(3):
+        for j in range(3):
+
+            for h in range(1,4):
+                for v in range(1,4):
+                    tile = board[h + (i * 3) - 1][v + (j * 3) - 1]
+                    #print(tile, h + (i * 3) - 1, v + (i * 3) - 1, " ", i, h, j, v)
+                    
+                    if tile == ".":
+                        pass
+                    elif tile in current:
+                        return False
+                    else:
+                        current.add(tile)
+
+            current = set()
+
+    return True
+
+
+    
+board = [["5","3",".",".","7",".",".",".","."]
+        ,["6",".",".","1","9","5",".",".","."]
+        ,[".","9","8",".",".",".",".","6","."]
+        ,["8",".",".",".","6",".",".",".","3"]
+        ,["4",".",".","8",".","3",".",".","1"]
+        ,["7",".",".",".","2",".",".",".","6"]
+        ,[".","6",".",".",".",".","2","8","."]
+        ,[".",".",".","4","1","9",".",".","5"]
+        ,[".",".",".",".","8",".",".","7","9"]]
+
+print(isValidSudoku(board))
+
+board = [["8","3",".",".","7",".",".",".","."]
+,["6",".",".","1","9","5",".",".","."]
+,[".","9","8",".",".",".",".","6","."]
+,["8",".",".",".","6",".",".",".","3"]
+,["4",".",".","8",".","3",".",".","1"]
+,["7",".",".",".","2",".",".",".","6"]
+,[".","6",".",".",".",".","2","8","."]
+,[".",".",".","4","1","9",".",".","5"]
+,[".",".",".",".","8",".",".","7","9"]]
+
+print(isValidSudoku(board))
