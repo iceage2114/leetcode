@@ -1,0 +1,16 @@
+def maxProfit(prices):
+    minPrice = float('inf')
+    profit = 0
+    
+    for i in prices:
+        if i < minPrice:
+            minPrice = i
+        elif i - minPrice > profit:
+            profit = i - minPrice
+    
+    return profit
+
+#test
+
+prices = [7,1,5,3,6,4]
+print(maxProfit(prices))
