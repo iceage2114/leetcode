@@ -7,32 +7,42 @@ def rotate(nums, k):
     for i in range(len(toReturn)):
         nums[i] = toReturn[i]
 
-def rotate2(nums, k):
+def reverse1(nums):
     length = len(nums)
-    length = int(length)
-    length /= 2
+    half = length // 2
+
+    for i in range(half):
+        tempIndex = length - i - 1
+        temp = nums[i]
+        nums[i] = nums[tempIndex]
+        nums[tempIndex] = temp
+
+def reverse2(nums, start, end):
+    half = (end - start) // 2
+    print(half)
     
-    for i in range(int(length)):
-        tempi = len(nums) - 1 - i
-        temp = nums[tempi]
-        nums[tempi] = nums[i]
-        nums[i] = temp
+    for i in range(start, start + half):
+        tempIndex = end - 1 - (i - start)
+        temp = nums[i]
+        nums[i] = nums[tempIndex]
+        nums[tempIndex] = temp
 
-    for i in range(int(k / 2)):
-        tempi = k - 1 - i
-        temp = nums[tempi]
-        nums[tempi] = nums[i]
-        nums[i] = temp
+def rotate2(nums, k):
+    reverse2(nums, 0, len(nums))
 
-    length = len(nums)
-    length = int(length)
-    length = length - (length - k) / 2
+    reverse2(nums, 0, k)
+    reverse2(nums, k, len(nums))
 
-    for i in range(k, int(length)):
-        tempi = len(nums) - (i - k) - 1
-        temp = nums[tempi]
-        nums[tempi] = nums[i]
-        nums[i] = temp
+
+nums = [1,2,3,4,5,6,7]
+print(nums)
+
+#       5,6,7,1,2,3,4
+
+k = 3
+rotate2(nums, k)
+print(nums)
+
 
 
 nums = [-1,-100,3,99]
