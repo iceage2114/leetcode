@@ -1,0 +1,17 @@
+def jump(nums):
+    toReturn = 0
+    land = 0
+    jump = 0
+    
+    for i in range(len(nums) - 1):
+        jump = max(jump, i + nums[i])
+        if i == land:
+            toReturn += 1
+            land = jump
+    return toReturn
+
+nums = [2,3,1,1,4]
+print(jump(nums))
+
+nums = [2,3,0,1,4]
+print(jump(nums))
