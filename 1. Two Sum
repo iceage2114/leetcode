@@ -1,0 +1,20 @@
+def twoSum(nums, target):
+    dic = {}
+
+    for i in range(len(nums)):
+
+        if nums[i] in dic and i != dic[nums[i]]:
+            return [i, dic[nums[i]]]
+
+        dic[target - nums[i]] = i
+        
+    return []
+
+
+nums = [7,11,15, 2]
+target = 9
+print(twoSum(nums, target))
+
+nums = [3,3]
+target = 6
+print(twoSum(nums, target))
