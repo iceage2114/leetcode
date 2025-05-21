@@ -1,0 +1,24 @@
+def canConstruct(ransomNote, magazine):
+    letters = dict()
+    
+    for letter in magazine:
+        if letters.get(letter) is None:
+            letters[letter] = 1
+        else:
+            letters[letter] += 1
+
+    print(letters)
+
+    for letter in ransomNote:
+        if letter not in letters:
+            return False
+        elif letter in letters and letters[letter] == 0:
+            return False
+        else:
+            letters[letter] -= 1
+
+    return True
+
+ransomNote = "aa"
+magazine = "ab"
+print(canConstruct(ransomNote, magazine))
