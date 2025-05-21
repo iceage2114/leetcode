@@ -1,0 +1,12 @@
+def isSubsequence(s, t):
+    slow, fast = 0, 0
+    while slow < len(s) and fast < len(t):
+        if s[slow] == t[fast]:
+            slow += 1
+        fast += 1
+    return slow == len(s)
+
+s = "abc"
+t = "ahbgdc"
+
+print(isSubsequence(s, t))
