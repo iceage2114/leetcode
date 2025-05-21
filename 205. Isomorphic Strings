@@ -1,0 +1,30 @@
+def isIsomorphic(s, t):
+    
+    if len(s) != len(t):
+        return False
+        
+    sTot = {}
+    tTos = {}
+
+
+    for i in range(len(s)):
+        schar = s[i]
+        tchar = t[i]
+        
+        if schar in sTot:
+            if sTot[schar] != tchar:
+                return False
+        else:
+            sTot[schar] = tchar
+        
+        if tchar in tTos:
+            if tTos[tchar] != schar:
+                return False
+        else:
+            tTos[tchar] = schar
+
+    return True
+
+s = "egg"
+t = "add"
+print(isIsomorphic(s,t))
