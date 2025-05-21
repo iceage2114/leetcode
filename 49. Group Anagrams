@@ -1,0 +1,23 @@
+def groupAnagrams(strs):
+
+    grams = {}
+    
+    for word in strs:
+        count = [0] * 26
+        
+        for char in word:
+            count[ord(char) - ord('a')] += 1
+            
+        key = tuple(count)
+        print(key)
+        
+        if key not in grams:
+            grams[key] = []
+            
+        grams[key].append(word)
+        
+    return list(grams.values())
+
+
+strs = ["eat","tea","tan","ate","nat","bat"]
+print(groupAnagrams(strs))
