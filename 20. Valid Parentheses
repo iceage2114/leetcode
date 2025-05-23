@@ -1,0 +1,18 @@
+def isValid(s):
+    stack = []
+    paren = {')': '(', '}': '{', ']': '['}
+    
+    for char in s:
+        if char in paren:
+            if not stack or stack.pop() != paren[char]:
+                return False
+        else:
+            stack.append(char)
+    
+    return not stack
+
+s = "()[]{}"
+print(isValid(s))
+
+s = "(]"
+print(isValid(s))
