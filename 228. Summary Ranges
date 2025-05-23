@@ -1,0 +1,91 @@
+def summaryRanges(nums):
+
+    sequences = []
+    toReturn = []
+    seen = set(nums)
+
+    
+    print("seen", seen)
+
+    for i in seen:
+        if i - 1 not in seen:
+            start = i + 1
+            while start in seen:
+                start += 1
+                
+            sequence = [i, start - 1]
+
+            if sequence[0] < sequence[1]:
+                add = str(sequence[0]) + "->" + str(sequence[1])
+                toReturn.append(add)
+            else:
+                toReturn.append(str(sequence[0]))
+    
+    return toReturn
+
+def summaryRanges2(nums):
+    start = nums[0]
+    end = -1
+    toReturn = []
+
+    for i in range(1, len(nums)):
+
+        if nums[i] == nums[i - 1] + 1:
+            end = nums[i]
+
+            if i == len(nums) - 1:
+                converted = convert(start, end)
+                toReturn.append(converted)
+        else:
+            if end == -1:
+                converted = convert(start, start)
+                toReturn.append(converted)
+                converted = convert(nums[i], nums[i])
+                toReturn.append(converted)
+                break
+            
+            converted = convert(start, end)
+            toReturn.append(converted)
+            
+            start = nums[i]
+                
+    return toReturn
+
+def summaryRanges3(nums):
+    start = 0
+    toReturn = []
+    end = 0
+
+    for i in range(1, len(nums)):
+
+        if nums[i] == nums[i - 1] + 1:
+            end = i
+        else:
+            converted = convert(nums[start], nums[end])
+            toReturn.append(converted)
+            start = i
+            end = i
+    
+    converted = convert(nums[start], nums[end])
+    toReturn.append(converted)
+            
+    return toReturn
+
+
+def convert(start, end):
+    
+    if start < end:
+        add = f"{start}->{end}"
+        return add
+    else:
+        return str(start)
+
+    
+
+nums = [0,1,2,4,5,7]
+# ["0->2","4->5","7"]
+
+print(summaryRanges3(nums))
+
+nums = [5,8]
+print(summaryRanges3(nums))
