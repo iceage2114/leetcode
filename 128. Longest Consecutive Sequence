@@ -1,0 +1,19 @@
+def longestConsecutive(nums):
+    toReturn = 0
+    seen = set(nums)
+
+    for i in seen:
+        
+        if i-1 not in seen:
+            start = i + 1
+            
+            while start in seen:
+                start += 1
+
+            if start - i > toReturn:
+                toReturn = start - i
+
+    return toReturn
+
+nums = [0,3,7,2,5,8,4,6,0,1]
+print(longestConsecutive(nums))
