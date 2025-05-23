@@ -1,0 +1,87 @@
+def addTwoNumbers(l1, l2):
+    carry = 0
+    toReturn = ListNode(0)
+    header = ListNode(0)
+    toReturn.next = header
+    val = 0
+    
+    while l1 and l2:
+        val = l1.val + l2.val
+        if carry == 1:
+            val += 1
+            carry = 0
+        if val >= 10:
+            carry = 1
+        header.next = ListNode(val % 10)
+        header = header.next
+        l1 = l1.next
+        l2 = l2.next
+        
+    while l1:
+        val = l1.val
+        if carry == 1:
+            val += 1
+            carry = 0
+        if val >= 10:
+            carry = 1
+        header.next = ListNode(val % 10)
+        header = header.next
+        l1 = l1.next
+        
+    while l2:
+        val = l2.val
+        if carry == 1:
+            val += 1
+            carry = 0
+        if val >= 10:
+            carry = 1
+        header.next = ListNode(val % 10)
+        header = header.next
+        l2 = l2.next
+
+    if val >= 10 and carry == 1:
+        final = ListNode(carry)
+        header.next = final
+        
+    return toReturn.next.next
+
+
+head1 = ListNode(9)
+head2 = ListNode(9)
+head3 = ListNode(9)
+head4 = ListNode(9)
+head5 = ListNode(9)
+head6 = ListNode(9)
+head7 = ListNode(9)
+
+
+head1.next = head2
+head2.next = head3
+head3.next = head4
+head4.next = head5
+head5.next = head6
+head6.next = head7
+
+
+lhead1 = ListNode(9)
+lhead2 = ListNode(9)
+lhead3 = ListNode(9)
+lhead4 = ListNode(9)
+
+
+lhead1.next = lhead2
+lhead2.next = lhead3
+lhead3.next = lhead4
+
+test = ListNode(5)
+test2 = ListNode(5)
+
+def printNodes(head):
+    toPrint = []
+    while head:
+        toPrint.append(head.val)
+        head = head.next
+    print(toPrint)
+
+result = addTwoNumbers(test, test2)
+printNodes(result)
