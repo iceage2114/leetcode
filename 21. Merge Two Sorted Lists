@@ -1,0 +1,55 @@
+def mergeTwoLists(list1, list2):
+    toReturn = ListNode(0)
+    header = ListNode(0)
+    toReturn.next = header
+    
+    while list1 and list2:
+
+        if list1.val < list2.val:
+            header.next = ListNode(list1.val)
+            list1 = list1.next
+        else:
+            header.next = ListNode(list2.val)
+            list2 = list2.next
+
+        header = header.next
+
+    while list1:
+        header.next = ListNode(list1.val)
+        list1 = list1.next
+        header = header.next
+
+
+    while list2:
+        header.next = ListNode(list2.val)
+        list2 = list2.next
+        header = header.next
+
+
+    return toReturn.next.next
+
+
+head1 = ListNode(1)
+head2 = ListNode(2)
+head3 = ListNode(5)
+head4 = ListNode(6)
+head5 = ListNode(7)
+
+
+head1.next = head2
+head2.next = head3
+head3.next = head4
+head4.next = head5
+
+lhead1 = ListNode(3)
+lhead2 = ListNode(4)
+lhead3 = ListNode(8)
+lhead4 = ListNode(9)
+
+
+lhead1.next = lhead2
+lhead2.next = lhead3
+lhead3.next = lhead4
+
+result = mergeTwoLists(head1, lhead1)
+printNodes(result)
