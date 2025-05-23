@@ -1,0 +1,30 @@
+class ListNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+        
+    def hasCycle(head: ListNode):
+        if not head:
+            return False
+            
+        slow = head
+        fast = head.next
+        
+        while slow != fast:
+            if not fast or not fast.next:
+                return False
+            slow = slow.next
+            fast = fast.next.next
+        
+        return True
+
+head1 = ListNode(3)
+head2 = ListNode(2)
+head3 = ListNode(0)
+head4 = ListNode(-4)
+head1.next = head2
+head2.next = head3
+head3.next = head4
+head4.next = head2
+
+print(hasCycle(head1))
