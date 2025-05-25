@@ -1,0 +1,58 @@
+class Node:
+    def __init__(self, x, next=None, random=None):
+        self.val = int(x)
+        self.next = next
+        self.random = random
+
+def copyRandomList(head):
+    if not head:
+        return None
+
+    nodes = {}
+    
+    current = head
+    while current:
+        nodes[current] = Node(current.val)
+        current = current.next
+    
+    current = head
+    while current:
+        newNode = nodes[current]
+        
+        if current.next:
+            newNode.next = nodes[current.next]
+        
+        if current.random:
+            newNode.random = nodes[current.random]
+        
+        current = current.next
+    
+    return nodes[head]
+
+def printNodes(head):
+    toPrint = []
+    while head:
+        toPrint.append(head.val)
+        head = head.next
+    print(toPrint)
+
+head1 = Node(7)
+head2 = Node(13)
+head3 = Node(11)
+head4 = Node(10)
+head5 = Node(1)
+
+
+head1.next = head2
+head2.next = head3
+head3.next = head4
+head4.next = head5
+
+head1.random = None
+head2.random = head1
+head3.random = head5
+head4.random = head3
+head5.random = head1
+
+result = copyRandomList(head1)
+printNodes(result)
