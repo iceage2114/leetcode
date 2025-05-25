@@ -1,0 +1,27 @@
+def reverseList(head):
+
+    prev = None
+    current = head
+    
+    while current:
+        next_node = current.next
+        current.next = prev
+        prev = current
+        current = next_node
+        
+    return prev
+
+head1 = ListNode(1)
+head2 = ListNode(2)
+head3 = ListNode(5)
+head4 = ListNode(6)
+head5 = ListNode(7)
+
+
+head1.next = head2
+head2.next = head3
+head3.next = head4
+head4.next = head5
+
+newNode = reverseList(head1)
+printNodes(newNode)
