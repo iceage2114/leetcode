@@ -1,0 +1,27 @@
+class TreeNode(object):
+     def __init__(self, val=0, left=None, right=None):
+         self.val = val
+         self.left = left
+         self.right = right
+
+
+def getMinimumDifference(root):
+    stack = []
+    current = root
+    prev = None
+    difference = float('inf')
+
+    while stack or current:
+        while current:
+            stack.append(current)
+            current = current.left
+
+        current = stack.pop()
+
+        if prev is not None:
+            difference = min(difference, current.val - prev)
+        prev = current.val
+
+        current = current.right
+
+    return difference
