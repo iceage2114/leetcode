@@ -1,0 +1,91 @@
+def insert(intervals, newInterval):
+
+    start = newInterval[0]
+    end = newInterval[1]
+    index = -1
+    toReturn = []
+    
+    for i in range(len(intervals)):
+        
+        if intervals[i][1] < start:
+            toReturn.append(intervals[i])
+        elif intervals[i][1] >= start and intervals[i][1] < end:
+            if intervals[i][0] < start:
+                start = intervals[i][0]
+            
+            if intervals[i][1] > end:
+                end = intervals[i][1]
+                
+        elif intervals[i][0] > end:
+            toReturn.append([start, end])
+            index = i
+            break
+            
+    if index != -1:
+        for i in range(index, len(intervals)):
+            toReturn.append(intervals[i])
+
+    return toReturn
+
+def insert2(intervals, newInterval):
+    insertInterval(intervals, newInterval)
+
+    start = intervals[0][0]
+    end = intervals[0][1]
+    toReturn = []
+    
+    for i in range(len(intervals)):
+        if intervals[i][0] > end:
+            toReturn.append([start,end])
+            start = intervals[i][0]
+            end = intervals[i][1]
+        elif intervals[i][0] <= end:
+            if end < intervals[i][1]:
+                end = intervals[i][1]
+
+    toReturn.append([start,end])
+    return toReturn
+
+def insertInterval(array, insert):
+    if insert[0] < array[0][0]:
+        array.insert(0, insert)
+        return
+    if insert[0] >= array[len(array) - 1][0]:
+        array.append(insert)
+        return
+        
+    for i in range(len(array)):
+        if array[i][0] > insert[0]:
+            array.insert(i, insert)
+            return
+            
+def quickSortArray(array, start, end):
+    if start >= end:
+        return
+
+    pivotIndex = start
+    pivot = array[start][0]
+
+    for i in range(start + 1, end):
+        if array[i][0] <= pivot:
+            pivotIndex += 1
+            swap(array, pivotIndex, i)
+
+    swap(array, start, pivotIndex)
+
+    quickSortArray(array, start, pivotIndex)
+    quickSortArray(array, pivotIndex + 1, end)
+
+def swap(array, i1, i2):
+    temp = array[i1]
+    array[i1] = array[i2]
+    array[i2] = temp
+
+    
+    
+
+intervals = [[1,2],[3,5],[6,7],[8,10],[12,16]]
+newInterval = [4,8]
+array = insert2(intervals, newInterval)
+print(array)
+# [[1,2],[3,10],[12,16]]
