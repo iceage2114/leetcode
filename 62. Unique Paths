@@ -1,0 +1,21 @@
+memo = {}
+
+def uniquePaths(m, n):
+    if n == 1 or m == 1:
+        return 1
+
+    key = f"{m}*{n}"
+    
+    if key in memo:
+        return memo[key]
+    
+    r =  uniquePaths(m - 1, n) + uniquePaths(m, n - 1)
+    
+    memo[key] = r
+
+    return r
+    
+
+m = 3
+n = 7
+print(uniquePaths(m,n))
