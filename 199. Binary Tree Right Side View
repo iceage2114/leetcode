@@ -1,0 +1,45 @@
+class TreeNode(object):
+     def __init__(self, val=0, left=None, right=None):
+         self.val = val
+         self.left = left
+         self.right = right
+
+def breadthFirst(root):
+
+    if root is None:
+        return []
+
+    seen = set()
+    queue = [(root, 0)]
+    toReturn = []
+
+    while len(queue) > 0:
+        current = queue.pop(0)
+        
+        if current[1] not in seen:
+            toReturn.append(current[0].val)
+            seen.add(current[1])
+            
+        if current[0].right is not None:
+            queue.append((current[0].right, current[1] + 1))
+            
+        if current[0].left is not None:
+            queue.append((current[0].left, current[1] + 1))
+
+        print(queue)
+    
+    return toReturn
+            
+    
+            
+
+    
+
+root = TreeNode(5)
+root.left = TreeNode(4)
+root.right = TreeNode(3)
+root.left.left = TreeNode(2)
+#root.right.right = TreeNode(6)
+root.right.left = TreeNode(1)
+
+breadthFirst(root)
