@@ -1,0 +1,37 @@
+def averageOfLevels(root):
+    if root is None:
+        return []
+    
+    sums = {}
+    counts = {}
+    queue = [(root, 0)]
+    
+    while queue:
+        current = queue.pop(0)
+        level = current[1]
+        
+        if level in sums:
+            sums[level] += current[0].val
+            counts[level] += 1
+        else:
+            sums[level] = current[0].val
+            counts[level] = 1
+        
+        if current[0].left:
+            queue.append((current[0].left, level + 1))
+        if current[0].right:
+            queue.append((current[0].right, level + 1))
+
+    averages = []
+    for level in sorted(sums.keys()):
+        averages.append(sums[level] / counts[level])
+    
+    return averages
+
+root = TreeNode(3)
+root.left = TreeNode(9)
+root.right = TreeNode(20)
+#root.left.left = TreeNode(2)
+root.right.right = TreeNode(15)
+root.right.left = TreeNode(7)
+print(averageOfLevels(root))
