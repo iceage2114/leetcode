@@ -1,0 +1,22 @@
+def productExceptSelf(nums):
+    length = len(nums)
+    preProduct = [1] * length
+    sufProduct = [1] * length
+    toReturn = [0] * length
+    
+    for i in range(1, length):
+        product = nums[i - 1] * preProduct[i - 1]
+        preProduct[i] = product
+
+    for i in range(length - 2, -1, -1):
+        product = nums[i + 1] * sufProduct[i + 1]
+        sufProduct[i] = product
+
+    for i in range(length):
+        toReturn[i] = preProduct[i] * sufProduct[i]
+
+    return toReturn
+
+nums = [1,2,3,4]
+#[24,12,8,6]
+print(productExceptSelf(nums))
