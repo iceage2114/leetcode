@@ -1,0 +1,24 @@
+def permutation(array):
+    if len(array) == 0:
+        return [[]]
+        
+    first = array[0]
+    remainder = array[1:]
+    
+    remainderPermutation = permutation(remainder)
+
+    toAdd = []
+    for perm in remainderPermutation:
+        for i in range(len(perm) + 1):
+            newPerm = list(perm)
+            newPerm.insert(i, first)
+            toAdd.append(newPerm)
+            
+    
+    return toAdd
+    
+perm = ["a", "b", "c"]
+print(permutation(perm))
+    
+        
+            
