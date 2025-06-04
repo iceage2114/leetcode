@@ -1,0 +1,49 @@
+def longestCommonPrefix(strs):
+    strs = sorted(strs)
+    start = strs[0]
+    end = strs[len(strs) - 1]
+    length = min(len(start), len(end))
+    toReturn = ""
+
+    for i in range(length):
+        if start[i] == end[i]:
+            toReturn += start[i]
+        else:
+            return toReturn
+
+    return toReturn
+
+def longestCommonPrefix2(strs):
+
+    shortest = float('inf')
+
+    for i in range(len(strs)):
+        if len(strs[i]) < shortest:
+            shortest = len(strs[i])
+
+    shortest = int(shortest)
+    prefix = ""
+    
+
+    for i in range(shortest):
+        letter = strs[0][i]
+        flag = False
+        
+        for j in range(1, len(strs)):
+            if strs[j][i] != letter:
+                flag = True
+                break
+        if flag:
+            break
+                
+        prefix += letter
+
+    print(prefix)
+    
+            
+
+strs = ["flower","flow","flight"]
+longestCommonPrefix2(strs)
+    
+
+        
