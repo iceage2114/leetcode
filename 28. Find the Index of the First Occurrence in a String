@@ -1,0 +1,19 @@
+def strStr(haystack, needle):
+
+    for i in range(len(haystack) - len(needle) + 1):
+        current = haystack[i : i + len(needle)]
+        if current == needle:
+            return i
+            
+    return -1
+
+    
+                
+
+haystack = "adbutsad"
+needle = "sad"
+print(strStr(haystack, needle))
+
+haystack = "leetcode"
+needle = "leeto"
+print(strStr(haystack, needle))
