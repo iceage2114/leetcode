@@ -1,0 +1,52 @@
+def reverseWords(s):
+    words = []
+
+    start = 0
+    end = 0
+    current = 0
+    found = False
+
+    """
+    while current < len(s):
+        if s[current] == " ":
+            if found is False:
+                start += 1
+                end += 1
+            else:
+                words.append(s[start:end])
+                found = False
+                start = current + 1
+                end = current + 1
+        else:
+            found = True
+            end += 1
+            
+        current += 1
+        """
+
+    for i in range(len(s)):
+        if s[i] == " ":
+            if found is False:
+                start += 1
+                end += 1
+            else:
+                words.append(s[start:end])
+                found = False
+                start = i + 1
+                end = i + 1
+        else:
+            found = True
+            end += 1
+
+    if start < end:
+        words.append(s[start: end + 1])
+        
+    reverse = words[::-1]
+    toReturn = " ".join(reverse)
+    return toReturn
+
+s = "the sky is blue"
+print(reverseWords(s))
+s = "  hello world  "
+print(reverseWords(s))
+
