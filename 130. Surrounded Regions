@@ -1,0 +1,49 @@
+def solve(board):
+    visited = set()
+    
+    for i in range(len(board[0])):
+        if board[0][i] == "O":
+            explore(board, 0, i, visited)
+
+    for i in range(len(board[len(board) - 1])):
+        if board[len(board) - 1][i] == "O":
+            explore(board, len(board) - 1, i, visited)
+
+    for i in range(len(board)):
+        if board[i][0] == "O":
+            explore(board, i, 0, visited)
+        if board[i][len(board[0]) - 1] == "O":
+            explore(board, i, len(board[0]) - 1, visited)
+
+    for row in range(1, len(board) - 1):
+        for col in range(1, len(board[0]) - 1):
+            position = str(row) + "," + str(col)
+            if position not in visited:
+                board[row][col] = "X"
+                
+def explore(grid, r, c, visited):
+    rowInbounds = 0 <= r and r < len(grid)
+    colInbounds = 0 <= c and c < len(grid[0])
+    if not (rowInbounds and colInbounds):
+        return False
+
+    if grid[r][c] == "X":
+        return False
+    
+    position = str(r) + "," + str(c)
+    if position in visited:
+        return False
+
+    visited.add(position)
+
+    explore(grid, r - 1, c, visited)
+    explore(grid, r + 1, c, visited)
+    explore(grid, r, c - 1, visited)
+    explore(grid, r, c + 1, visited)
+
+    return True
+
+board = [["X","O","X","O","X","O"],["O","X","O","X","O","X"],["X","O","X","O","X","O"],["O","X","O","X","O","X"]]
+solve(board)
+print(board)
+# [["X","X","X","X"],["X","X","X","X"],["X","X","X","X"],["X","O","X","X"]]
