@@ -1,0 +1,27 @@
+def intToRoman(num):
+    ones = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"]
+    tens = ["", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"]
+    hund = ["", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"]
+    thou = ["", "M", "MM", "MMM"]
+
+    thouPlace = thou[num // 1000]
+    hundPlace = hund[(num % 1000) // 100]
+    tensPlace = tens[(num % 100) // 10]
+    onesPlace = ones[num % 10]
+    
+    return thouPlace + hundPlace + tensPlace + onesPlace
+    
+num = 3749
+# "MMMDCCXLIX"
+print(intToRoman(num))
+
+num = 58
+# "LVIII"
+print(intToRoman(num))
+
+num = 1994
+# "MCMXCIV"
+print(intToRoman(num))
+
+        
+    
