@@ -1,0 +1,26 @@
+def buildTree(self, inorder, postorder):
+    
+    if not inorder:
+        return None
+    
+    val = postorder.pop()
+    root = TreeNode(val)
+    
+    index = inorder.index(val)
+    
+    root.right = self.buildTree(inorder[index+1:], postorder)
+    root.left = self.buildTree(inorder[:index], postorder)
+    
+    return root
+
+def buildPostInorder(postorder, inorder):
+    if inorder:
+        index = inorder.index(postorder.pop())
+        
+        root = TreeNode(inorder[index])
+
+        root.right = buildPostInorder(postorder, inorder[index + 1:])
+        root.left = buildPostInorder(postorder, inorder[:index])
+        
+
+        return root
