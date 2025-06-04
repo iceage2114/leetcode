@@ -1,0 +1,63 @@
+class ListNode(object):
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+        
+def removeNthFromEnd(head, n):
+    if head is None:
+        return None
+
+    current = head
+    count = 0
+    
+    removed = head
+    prev = removed
+
+    while current is not None:
+        current = current.next
+
+        if count >= n:
+            prev = removed
+            removed = removed.next
+            
+        count += 1
+        
+    prev.next = removed.next
+
+    if count == n:
+        return head.next
+        
+    return head
+
+def printNodes(head):
+    toPrint = []
+    while head:
+        toPrint.append(head.val)
+        head = head.next
+    print(toPrint)
+
+def insertBefore(node, data):
+    newNode = ListNode(data)
+    newNode.next = node
+    return newNode
+
+node0 = ListNode(5)
+node0 = insertBefore(node0, 4)
+node0 = insertBefore(node0, 3)
+node0 = insertBefore(node0, 2)
+node0 = insertBefore(node0, 1)
+
+printNodes(node0)
+result = removeNthFromEnd(node0, 5)
+printNodes(result)
+
+
+n1 = ListNode(2)
+n1 = insertBefore(n1, 1)
+printNodes(n1)
+
+result = removeNthFromEnd(n1, 2)
+printNodes(result)
+    
+
+    
