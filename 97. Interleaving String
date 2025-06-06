@@ -1,0 +1,56 @@
+memo = {}
+def isInterleave(s1, s2, s3):
+
+    key = str(s1) + ", " + str(s2)
+    if key in memo:
+        return memo[key]
+        
+    if len(s1) == 0:
+        if s2 == s3:
+            return True
+        else:
+            return False
+    if len(s2) == 0:
+        if s1 == s3:
+            return True
+        else:
+            return False
+    if len(s1) + len(s2) != len(s3):
+        return False
+
+    s1first = s1[0]
+    s1rem = s1[1:]
+    s2first = s2[0]
+    s2rem = s2[1:]
+
+    if s1first != s3[0] and s2first != s3[0]:
+        return False
+    
+    toReturn = False
+
+    if s3[0] == s1first:
+        result = isInterleave(s1rem, s2, s3[1:])
+        key = str(s1rem) + ", " + str(s2)
+        memo[key] = result
+        
+        toReturn |= result
+        if toReturn:
+            return True
+    if s3[0] == s2first:
+        result = isInterleave(s1, s2rem, s3[1:])
+        key = str(s1) + ", " + str(s2rem)
+        memo[key] = result
+
+        toReturn |= result
+
+    return toReturn
+
+s1 = "aaaa"
+s2 = "aa"
+s3 = "aaa"
+print(isInterleave(s1, s2, s3))
+
+s1 = "bbbbbabbbbabaababaaaabbababbaaabbabbaaabaaaaababbbababbbbbabbbbababbabaabababbbaabababababbbaaababaa"
+s2 = "babaaaabbababbbabbbbaabaabbaabbbbaabaaabaababaaaabaaabbaaabaaaabaabaabbbbbbbbbbbabaaabbababbabbabaab"
+s3 = "babbbabbbaaabbababbbbababaabbabaabaaabbbbabbbaaabbbaaaaabbbbaabbaaabababbaaaaaabababbababaababbababbbababbbbaaaabaabbabbaaaaabbabbaaaabbbaabaaabaababaababbaaabbbbbabbbbaabbabaabbbbabaaabbababbabbabbab"
+print(isInterleave(s1, s2, s3))
