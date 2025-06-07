@@ -1,0 +1,11 @@
+def hammingWeight(n):
+    toReturn = 0
+
+    for i in range(32):
+        if (n >> i) & 1:
+            toReturn += 1
+
+    return toReturn
+
+n = 11
+print(hammingWeight(n))
