@@ -1,0 +1,12 @@
+def reverseBits(n):
+    toReturn = 0
+    
+    for i in range(32):
+        toReturn = toReturn << 1
+        toReturn += (n & 1)
+        n = n >> 1
+        
+    return toReturn
+
+n = 11111111111111111111111111111101
+print(reverseBits(n))
