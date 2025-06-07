@@ -1,0 +1,49 @@
+def canCompleteCircuit(gas, cost):
+    
+    tank = 0
+    
+    for i in range(len(gas)):
+        tank = gas[i]
+        for j in range(len(gas)):
+            nextIndex = (i + j + 1) % (len(gas))
+            #print(f"{i,j}, tank: {tank} - {cost[nextIndex - 1]} + {gas[nextIndex]}")
+            tank -= cost[nextIndex - 1]
+            if tank < 0:
+                #print("break")
+                break
+            else:
+                tank += gas[nextIndex]
+
+        if tank > 0:
+            return i
+
+    return -1
+
+def canCompleteCircuit1(gas, cost):
+    totalGas = 0
+    for i in gas:
+        totalGas += i
+    for i in cost:
+        totalGas -= i
+    if totalGas < 0:
+        return -1
+    
+    tank = 0
+    start = 0
+    
+    for i in range(len(gas)):
+        tank += gas[i] - cost[i]
+        if tank < 0:
+            tank = 0
+            start = i + 1
+            
+    return start
+
+    #   0 1 2 3 4
+gas =  [1,2,3,4,5]
+cost = [3,4,5,1,2]
+print(canCompleteCircuit1(gas, cost))
+
+gas = [2,3,4]
+cost = [3,4,3]
+print(canCompleteCircuit1(gas, cost))
