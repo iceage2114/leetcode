@@ -1,0 +1,129 @@
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.word = None
+        
+class Trie():
+    def __init__(self):
+        self.root = TrieNode()
+    
+    def insert(self, word):
+        node = self.root
+        for char in word:
+            if char not in node.children:
+                node.children[char] = TrieNode()
+            node = node.children[char]
+        node.word = word
+
+
+
+def findWords(board, words):
+    toReturn = []
+    trie = Trie()
+    node = trie.root
+    
+    for word in words:
+        trie.insert(word)
+        
+    for row in range(len(board)):
+        for col in range(len(board[0])):
+            explore2(board, node, row, col, toReturn)
+            
+    return toReturn
+
+def explore2(board, node, row, col, toReturn):
+    if node.word:
+        toReturn.append(node.word)
+        node.word = None
+        
+    current = board[row][col]
+    
+    if current not in node.children:
+        return
+        
+    nextNode = node.children[current]
+
+    board[row][col] = "#"
+
+    if row + 1 < len(board):
+        explore2(board, nextNode, row + 1, col, toReturn)
+    if row - 1 >= 0:
+        explore2(board, nextNode, row - 1, col, toReturn)
+    if col - 1 >= 0:
+        explore2(board, nextNode, row, col - 1, toReturn)
+    if col + 1 < len(board[0]):
+        explore2(board, nextNode, row, col + 1, toReturn)
+        
+    board[row][col] = current
+
+board = [["o","a","a","n"],["e","t","a","e"],["i","h","k","r"],["i","f","l","v"]]
+words = ["oath","pea","eat","rain"]
+print(findWords(board, words))
+
+board = [["a","b"],["c","d"]]
+words = ["abcb"]
+
+memo = {}
+def findWords2(board, words):
+    toReturn = []
+    for word in words:
+        result = False
+        for row in range(len(board)):
+            for col in range(len(board[0])):
+                visited = []
+                result = explore(board, row, col, word, visited)
+                if result:
+                    toReturn.append(word)
+                    break
+            if result:
+                break
+    return toReturn
+
+def explore(board, row, col, remainder, visited):
+    if len(remainder) == 0:
+        return True
+
+    if row < 0 or row >= len(board) or col < 0 or col >= len(board[0]):
+        return False
+
+    position = str(row) + "," + str(col)
+    
+    if position in visited:
+        return False
+
+    key = position + remainder
+    if key in memo:
+        return memo[key]
+    
+    current = board[row][col]
+
+    if current == remainder[0]:
+        result = explore(board, row, col + 1, remainder[1:], visited + [position])
+        key = position + remainder[1:]
+        memo[key] = result
+        if result:
+            return True
+            
+        result = explore(board, row, col - 1, remainder[1:], visited + [position])
+        key = position + remainder[1:]
+        memo[key] = result
+        if result:
+            return True
+            
+        result = explore(board, row - 1, col, remainder[1:], visited + [position])
+        key = position + remainder[1:]
+        memo[key] = result
+        if result:
+            return True
+            
+        result = explore(board, row + 1, col, remainder[1:], visited + [position])
+        key = position + remainder[1:]
+        memo[key] = result
+        if result:
+            return True
+
+    return False
+
+board = [["a","b","c"],["a","e","d"],["a","f","g"]]
+words = ["abcdefg","gfedcbaaa","eaabcdgfa","befa","dgc","ade"]
+print(findWords2(board, words))
