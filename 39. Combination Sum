@@ -1,0 +1,23 @@
+def combinationSum(candidates, target):
+    result = []
+    
+    def makeCombo(index, comb, total):
+        if total == target:
+            result.append(comb[:])
+            return
+        
+        if total > target or index >= len(candidates):
+            return
+        
+        comb.append(candidates[index])
+        makeCombo(index, comb, total + candidates[index])
+        comb.pop()
+        makeCombo(index+1, comb, total)
+    
+        return result
+    
+    return makeCombo(0, [], 0)
+
+candidates = [2,3,6,7]
+target = 7
+print(combinationSum(candidates, target))
