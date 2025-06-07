@@ -1,0 +1,30 @@
+def letterCombinations(digits):
+    if not digits:
+        return []
+    
+    digitToLetter = {
+        '2': 'abc',
+        '3': 'def',
+        '4': 'ghi',
+        '5': 'jkl',
+        '6': 'mno',
+        '7': 'pqrs',
+        '8': 'tuv',
+        '9': 'wxyz',
+    }
+
+    def backtrack(index, comb):
+        if index == len(digits):
+            res.append(comb[:])
+            return
+        
+        for letter in digitToLetter[digits[index]]:
+            backtrack(index + 1, comb + letter)
+
+    res = []
+    backtrack(0, "")
+
+    return res
+
+digits = "23"
+print(letterCombinations(digits))
