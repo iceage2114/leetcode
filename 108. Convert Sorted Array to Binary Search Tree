@@ -1,0 +1,23 @@
+ class TreeNode(object):
+     def __init__(self, val=0, left=None, right=None):
+         self.val = val
+         self.left = left
+         self.right = right
+
+def sortedArrayToBST(nums):
+    if len(nums) <= 1:
+        return TreeNode(nums[0])
+    if len(nums) == 2:
+        left = TreeNode(nums[0])
+        right = TreeNode(nums[1])
+        right.left = left
+        return right
+        
+    middle = len(nums) // 2
+    root = TreeNode(nums[middle])
+
+    root.left = sortedArrayToBST(nums[0:middle])
+    root.right = sortedArrayToBST(nums[middle + 1: len(nums)])
+    return root
+    
+    
