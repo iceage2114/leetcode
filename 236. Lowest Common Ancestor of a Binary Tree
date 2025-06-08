@@ -1,0 +1,79 @@
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+
+def lowestCommonAncestor(root, p, q):
+
+    pPath = dfs(root, p, [])
+    qPath = dfs(root, q, [])
+    
+    list1 = [node.val for node in pPath]
+    print(list1)
+    list2 = [node.val for node in qPath]
+    print(list2)
+    
+    toReturn = None
+    
+    length = min(len(pPath), len(qPath))
+    for i in range(length):
+        if pPath[i].val == qPath[i].val:
+            toReturn = pPath[i]
+        else:
+            break
+    
+    return toReturn
+
+def dfs(root, target, path):
+    if not root:
+        return []
+    if root.val == target.val:
+        return path + [root]
+    
+    left = dfs(root.left, target, path + [root])
+    if len(left) > 0:
+        return left
+    
+    right = dfs(root.right, target, path + [root])
+    if len(right) > 0:
+        return right
+    
+    return []
+
+def dfs2(root, target, path):
+    if not root:
+        return []
+    if root.val == target:
+        return path + [root.val]
+
+    left = dfs2(root.left, target, path + [root.val])
+    if len(left) > 0:
+        return left
+
+    right = dfs2(root.right, target, path + [root.val])
+    if len(right) > 0:
+        return right
+
+    return []
+    
+
+    
+root = TreeNode(3)
+root.left = TreeNode(5)
+root.right = TreeNode(1)
+root.left.left = TreeNode(6)
+root.left.right = TreeNode(2)
+root.right.left = TreeNode(0)
+root.right.right = TreeNode(8)
+root.left.right.left = TreeNode(7)
+root.left.right.right = TreeNode(4)
+
+print(lowestCommonAncestor(root, 5, 1).val)
+print(lowestCommonAncestor(root, 5, 4).val)
+print(lowestCommonAncestor(root, 7, 4).val)
+print(lowestCommonAncestor(root, 7, 8).val)
+print(lowestCommonAncestor(root, 0, 8).val)
+print(lowestCommonAncestor(root, 6, 2).val)
+
