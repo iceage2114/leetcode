@@ -1,0 +1,68 @@
+class ListNode:
+     def __init__(self, val=0, next=None):
+         self.val = val
+         self.next = next
+
+def rotateRight(head, k):
+    current = head
+    dummy = head
+    
+    for i in range(k):
+        dummy = dummy.next
+        
+    newStart = dummy.next
+    dummy.next = None
+
+    toReturn = ListNode(0)
+    toReturn.next = newStart
+
+    while newStart.next is not None:
+        newStart = newStart.next
+    newStart.next = current
+
+    return toReturn.next
+
+def rotateRight2(head, k):
+    if not head or not head.next or k == 0:
+        return head
+    
+    current = head
+    length = 1
+    while current.next:
+        current = current.next
+        length += 1
+
+    current.next = head
+
+    k = length - (k % length)
+    while k > 0:
+        current = current.next
+        k -= 1
+
+    toReturn = current.next
+    current.next = None
+    return toReturn
+
+def insertBefore(node, k):
+    newNode = ListNode(k)
+    newNode.next = node
+    return newNode
+
+def printLinkedList(head):
+    toReturn = []
+
+    while head:
+        toReturn.append(head.val)
+        head = head.next
+        
+    print(toReturn)
+    
+head = ListNode(5)
+head = insertBefore(head, 4)
+head = insertBefore(head, 3)
+head = insertBefore(head, 2)
+head = insertBefore(head, 1)
+
+printLinkedList(head)
+result = rotateRight2(head, 11)
+printLinkedList(result)
