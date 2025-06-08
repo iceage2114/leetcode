@@ -1,0 +1,43 @@
+def calculate(s):
+    toReturn = 0
+    stack = []
+    num = 0
+    sign = 1
+    current = 0
+    
+    while current < len(s):
+        char = s[current]
+        
+        if char.isdigit():
+            num = num * 10 + int(char)
+            
+        elif char == '+' or char == '-':
+            toReturn += sign * num
+            num = 0
+            if char == '+':
+                sign = 1
+            else:
+                sign = -1
+                
+        elif char == '(':
+            stack.append(toReturn)
+            stack.append(sign)
+            toReturn = 0
+            sign = 1
+            
+        elif char == ')':
+            toReturn += sign * num
+            num = 0
+            prevSign = stack.pop()
+            prevRes = stack.pop()
+            toReturn = prevRes + prevSign * toReturn
+            
+        current += 1  
+        
+    if num:
+        toReturn += sign * num
+        
+    return toReturn
+
+s = "(1+(4+5+2)-3)+(6+8)"
+print(calculate(s))
