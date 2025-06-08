@@ -1,0 +1,52 @@
+class TreeNode(object):
+     def __init__(self, val=0, left=None, right=None):
+         self.val = val
+         self.left = left
+         self.right = right
+
+class Solution:
+    def countNodes2(self, root: TreeNode) -> int:
+        if not root:
+            return 0
+        
+        left_depth = self.get_depth(root.left)
+        right_depth = self.get_depth(root.right)
+        
+        if left_depth == right_depth:
+            return (1 << left_depth) + self.countNodes2(root.right)
+        else:
+            return (1 << right_depth) + self.countNodes2(root.left)
+    
+    def get_depth(self, node):
+        depth = 0
+        while node:
+            node = node.left
+            depth += 1
+        return depth
+
+def countNodes(root):
+    if not root:
+        return 0
+
+    left = getDepth(root.left)
+    right = getDepth(root.right)
+
+    if left == right:
+        return (1 << left) + countNodes(root.right)
+    else:
+        return (1 << right) + countNodes(root.left)
+
+def getDepth(node):
+    depth = 0
+    while node:
+        node = node.left
+        depth += 1
+    return depth
+
+root = TreeNode(5)
+root.left = TreeNode(4)
+root.right = TreeNode(3)
+root.left.left = TreeNode(2)
+root.left.right = TreeNode(6)
+
+print(countNodes(root))
