@@ -1,0 +1,10 @@
+def kthSmallest(root, k):
+    def inorder(node):
+        if not node:
+            return []
+        result = inorder(node.left) + [node.val] + inorder(node.right)
+        return result
+
+    inorder = inorder(root)
+    return inorder[k - 1]
+
