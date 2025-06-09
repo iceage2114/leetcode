@@ -1,0 +1,11 @@
+def trailingZeroes(n):
+    toReturn = 0
+    
+    while n > 0:
+        n //= 5
+        toReturn += n
+        
+    return toReturn
+
+n = 5
+print(trailingZeroes(n))
