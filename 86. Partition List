@@ -1,0 +1,49 @@
+class ListNode(object):
+     def __init__(self, val=0, next=None):
+         self.val = val
+         self.next = next
+         
+def partition(head, x):
+    left = ListNode(0)
+    leftStart = left
+    right = ListNode(0)
+    rightStart = right
+
+    current = head
+    while current is not None:
+        if current.val < x:
+            left.next = current
+            left = left.next
+        elif current.val >= x:
+            right.next = current
+            right = right.next
+        current = current.next
+
+    left.next = rightStart.next
+    right.next = None
+
+    return leftStart.next
+
+def insertBefore(node, k):
+    newNode = ListNode(k)
+    newNode.next = node
+    return newNode
+
+def printLinkedList(head):
+    toReturn = []
+
+    while head:
+        toReturn.append(head.val)
+        head = head.next
+        
+    print(toReturn)
+    
+head = ListNode(2)
+head = insertBefore(head, 5)
+head = insertBefore(head, 2)
+head = insertBefore(head, 3)
+head = insertBefore(head, 4)
+head = insertBefore(head, 1)
+printLinkedList(head)
+
+printLinkedList(partition(head, 3))
