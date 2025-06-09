@@ -1,0 +1,24 @@
+def candy(ratings):
+    length = len(ratings)
+    count = 0
+    toReturn = [1] * length
+
+    for i in range(1, length):
+        if ratings[i] > ratings[i - 1]:
+            toReturn[i] = toReturn[i - 1] + 1
+
+    for i in range(length - 1, 0, -1):
+        if ratings[i - 1] > ratings[i]:
+            toReturn[i - 1] = max(toReturn[i] + 1, toReturn[i - 1])
+            
+        count += toReturn[i - 1]
+
+    count += toReturn[length - 1]
+    
+    return count
+
+ratings = [1,0,2]
+print(candy(ratings))
+
+ratings = [1,2,2]
+print(candy(ratings))
