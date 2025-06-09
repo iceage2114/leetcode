@@ -1,0 +1,23 @@
+def evalRPN(tokens):
+    toReturn = []
+
+    for char in tokens:
+        if char == "+":
+            toReturn.append(toReturn.pop() + toReturn.pop())
+        elif char == "-":
+            second = toReturn.pop()
+            first = toReturn.pop()
+            toReturn.append(first - second)
+        elif char == "*":
+            toReturn.append(toReturn.pop() * toReturn.pop())
+        elif char == "/":
+            second = toReturn.pop()
+            first = toReturn.pop()
+            toReturn.append(int(first / second))                
+        else:
+            toReturn.append(int(char))
+    
+    return toReturn[0]
+
+tokens = ["10","6","9","3","+","-11","*","/","*","17","+","5","+"]
+print(evalRPN(tokens))
