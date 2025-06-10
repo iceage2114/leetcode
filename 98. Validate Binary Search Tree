@@ -12,3 +12,24 @@ def isValidBST(root):
             return False
 
     return True
+
+
+def isValid2(root):
+    def dfs(root, minVal, maxVal):
+        if root is None:
+            return True
+    
+        if !(minVal < root.val < maxVal):
+            return False
+
+        left = dfs(root.left, minVal, node.val)
+        right = dfs(root,right, node.val, maxVal)
+    
+        return left and right
+
+    if root is None:
+        return False
+        
+    return dfs(root, float('-inf'), float('inf')
+
+        
