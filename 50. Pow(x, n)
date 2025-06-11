@@ -1,0 +1,47 @@
+def myPow(x, n):
+    if x == 0:
+        return 0
+    if n == 0:
+        return 1
+
+    flip = False
+    if n < 0:
+        flip = True
+    n = abs(n)
+        
+    toReturn = x
+
+    for i in range(1, n):
+        toReturn *= x
+
+    if flip:
+        return 1 / toReturn
+    return toReturn
+
+def myPow2(x, n):
+
+    def calculate(x, n):
+        if x == 0:
+            return 0
+        if n == 0:
+            return 1
+        
+        result = calculate(x, n // 2)
+        result = result * result
+
+        if n % 2 == 1:
+            return result * x
+        
+        return result
+
+    result = calculate(x, abs(n))
+
+    if n >= 0:
+        return result
+    
+    return 1 / result 
+
+
+x = 2.00000
+n = 10
+print(myPow2(x, n))
