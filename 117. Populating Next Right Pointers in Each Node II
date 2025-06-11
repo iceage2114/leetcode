@@ -1,0 +1,28 @@
+class Node(object):
+    def __init__(self, val=0, left=None, right=None, next=None):
+        self.val = val
+        self.left = left
+        self.right = right
+        self.next = next
+        
+def connect(root):
+    if not root:
+        return root
+    
+    dummy = Node(0) 
+    current = root
+    
+    while current:
+        link = dummy
+        while current:
+            if current.left:
+                link.next = current.left
+                link = link.next
+            if current.right:
+                link.next = current.right
+                link = link.next
+            current = current.next
+        current = dummy.next
+        dummy.next = None
+        
+    return root
