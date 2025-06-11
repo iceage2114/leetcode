@@ -1,0 +1,35 @@
+def minMutation(startGene, endGene, bank):
+    bank = set(bank)
+
+    if endGene not in bank:
+        return -1
+
+    queue = []
+    queue.append([startGene, 0])
+
+    visited = {startGene}
+
+    while queue:
+        pop = queue.pop(0)
+        gene = pop[0]
+        level = pop[1]
+
+        if gene == endGene:
+            return level
+            
+        length = len(gene)
+        
+        for i in range(length):
+            for char in 'ACGT':
+                newGene = gene[:i] + char + gene[i + 1:]
+                if newGene not in visited and newGene in bank:
+                    queue.append([newGene, level + 1])
+                    visited.add(newGene)
+                    
+    return -1
+
+startGene = "AACCGGTT"
+endGene = "AACCGGTA"
+bank = ["AACCGGTA"]
+
+print(minMutation(startGene, endGene, bank))
