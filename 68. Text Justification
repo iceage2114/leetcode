@@ -1,0 +1,66 @@
+def fullJustify(words, maxWidth):
+
+    count = 0
+    current = []
+    toReturn = []
+    
+    for word in words:
+        if count + len(word) + len(current) <= maxWidth:
+            current.append(word)
+            count += len(word)
+        else:
+            toReturn.append(justify(current, maxWidth))
+            current = [word]
+            count = len(word)
+
+    if len(current) > 0:
+        last = ' '.join(current)
+        last += ' ' * (maxWidth - len(last))
+        toReturn.append(last)
+
+    return toReturn
+        
+def justify(words, width):
+    toReturn = ""
+
+    if len(words) <= 2:
+        if len(words) == 2:
+            spaces = ' ' * (width - len(words[0]) - len(words[1]))
+            return words[0] + spaces + words[1]
+        if len(words) == 1:
+            spaces = " " * (width - len(words[0]))
+            return words[0] + spaces
+        
+        return toReturn
+        
+    spaces = []
+
+    wordsLength = 0
+    for i in words:
+        wordsLength += len(i)
+
+    totalSpaces = width - wordsLength
+    spaceLength = totalSpaces // (len(words) - 1)
+    lastSpace = totalSpaces % (len(words) - 1)
+    
+    toReturn = words[0]
+    for i in range(1, len(words)):
+        space = spaceLength
+        if i <= lastSpace:
+            space += 1
+        toReturn += ' ' * space + words[i]
+
+    return toReturn
+
+words = ["Science","is","what","we","understand","well","enough","to","explain","to","a","computer.","Art","is","everything","else","we","do"]
+maxWidth = 20
+"""[
+  "Science  is  what we",
+  "understand      well",
+  "enough to explain to",
+  "a  computer.  Art is",
+  "everything  else  we",
+  "do                  "
+]"""
+
+print(fullJustify(words, maxWidth))
