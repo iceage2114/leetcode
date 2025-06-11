@@ -1,0 +1,32 @@
+class TreeNode(object):
+     def __init__(self, val=0, left=None, right=None):
+         self.val = val
+         self.left = left
+         self.right = right
+         
+def flatten(root):
+    def dfs(root):
+        if root is None:
+            return None
+
+        left = dfs(root.left)
+        right = dfs(root.right)
+
+        if root.left:
+            left.right = root.right
+            root.right = root.left
+            root.left = None
+
+        if right:
+            return right
+        elif left:
+            return left
+        return root
+
+    dfs(root)
+
+root = TreeNode(1)
+root.left = TreeNode(2)
+root.left.left = TreeNode(3)
+root.right = TreeNode(4)
+root.right.right = TreeNode(5)
