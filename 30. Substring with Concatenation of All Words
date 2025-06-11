@@ -1,0 +1,40 @@
+def findSubstring(s, words):
+    if not words or not s:
+        return []
+        
+    length = len(words[0])
+    count = len(words)
+    wordLength = length * count
+
+    if len(s) < wordLength:
+        return []
+
+    counter = {}
+    for word in words:
+        counter[word] = counter.get(word, 0) + 1
+
+    toReturn = []
+
+    for i in range(len(s) - wordLength + 1):
+        window = s[i:i + wordLength]
+        wordLengths = {}
+
+        j = 0
+        while j < wordLength:
+            word = window[j:j + length]
+            
+            if word in wordLengths:
+                wordLengths[word] += 1
+            else:
+                wordLengths[word] = 1
+            
+            j += length
+
+        if counter == wordLengths:
+            toReturn.append(i)
+
+    return toReturn
+
+s = "barfoofoobarthefoobarman"
+words = ["bar","foo","the"]
+print(findSubstring(s, words))
