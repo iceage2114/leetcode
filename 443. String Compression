@@ -1,0 +1,37 @@
+def compress(chars):
+    if not chars:
+        return 0
+    
+    add = 0
+    current = 0
+    
+    while current < len(chars):
+        char = chars[current]
+        count = 0
+        
+        while current < len(chars):
+            if chars[current] == char:
+                current += 1
+                count += 1
+            else:
+                break
+        
+        chars[add] = char
+        add += 1
+        
+        if count > 1:
+            for digit in str(count):
+                chars[add] = digit
+                add += 1
+    
+    return add
+
+chars = ["a","a","b","b","c","c","c"]
+# ["a","2","b","2","c","3"]
+print(compress(chars))
+print(chars)
+
+chars = ["a","b","b","b","b","b","b","b","b","b","b","b","b"]
+# ["a","b","1","2"]
+print(compress(chars))
+print(chars)
