@@ -1,0 +1,21 @@
+def moveZeroes(nums):
+
+    def swap(nums, i1, i2):
+        nums[i1], nums[i2] = nums[i2], nums[i1]
+        
+    pivotIndex = 0
+    
+    for i in range(len(nums)):
+        if nums[i] != 0:
+            swap(nums, i, pivotIndex)
+            pivotIndex += 1
+    print(pivotIndex)        
+
+    
+nums = [0,1,0,3,12]
+moveZeroes(nums)
+print(nums)
+
+nums = [1,2]
+moveZeroes(nums)
+print(nums)
