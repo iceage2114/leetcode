@@ -1,0 +1,23 @@
+def findDifference(nums1, nums2):
+    set1 = set(nums1)
+    set2 = set(nums2)
+    seen1 = set()
+    seen2 = set()
+    array1 = []
+    array2 = []
+
+    for i in range(len(nums1)):
+        if nums1[i] not in set2 and nums1[i] not in seen1:
+            array1.append(nums1[i])
+            seen1.add(nums1[i])
+
+    for i in range(len(nums2)):
+        if nums2[i] not in set1 and nums2[i] not in seen2:
+            array2.append(nums2[i])
+            seen2.add(nums2[i])
+
+    return [array1, array2]
+
+nums1 = [1,2,3]
+nums2 = [2,4,6]
+print(findDifference(nums1, nums2))
