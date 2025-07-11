@@ -1,0 +1,17 @@
+def findMaxAverage(nums, k):
+    start = 0
+    end = k - 1
+    total = sum(nums[:k])
+
+    current = total
+
+    for i in range(k, len(nums)):
+        current -= nums[i - k]
+        current += nums[i]
+        total = max(total, current)
+
+    return (total / k)
+
+nums = [1,12,-5,-6,50,3]
+k = 4
+print(findMaxAverage(nums, k))
