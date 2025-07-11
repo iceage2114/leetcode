@@ -1,0 +1,15 @@
+def largestAltitude(gain):
+    toReturn = 0
+    current = 0
+
+    for i in range(len(gain)):
+        current += gain[i]
+        toReturn = max(toReturn, current)
+
+    return toReturn
+
+gain = [-5,1,5,0,-7]
+print(largestAltitude(gain))
+
+gain = [-4,-3,-2,-1,4,3,2]
+print(largestAltitude(gain))
