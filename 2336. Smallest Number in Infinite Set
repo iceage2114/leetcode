@@ -1,0 +1,16 @@
+class SmallestInfiniteSet:
+    def __init__(self):
+        self.elements = set()
+
+    def popSmallest(self):
+        smallest = 1
+        
+        while smallest in self.elements:
+            smallest += 1
+        self.elements.add(smallest)
+        
+        return smallest
+
+    def addBack(self, num):
+        if num in self.elements:
+            self.elements.remove(num)
