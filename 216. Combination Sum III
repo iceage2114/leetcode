@@ -1,0 +1,26 @@
+def combinationSum3(k, n):
+    toReturn = []
+
+    def backtrack(num, stack, target):
+        if len(stack) == k:
+            if target == 0:
+                toReturn.append(stack)
+            return
+
+        for i in range(num + 1, 10):
+            if i <= target:
+                backtrack(i, stack + [i], target - i)
+            else:
+                return
+
+    backtrack(0, [], n)
+    return toReturn
+
+
+k = 3
+n = 7
+print(combinationSum3(k, n))
+
+k = 3
+n = 9
+print(combinationSum3(k, n))
