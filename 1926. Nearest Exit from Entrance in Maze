@@ -1,0 +1,40 @@
+def nearestExit(maze, entrance):
+    queue = [(entrance[0], entrance[1], 0)]
+    m = len(maze)
+    n = len(maze[0])
+    
+    maze[entrance[0]][entrance[1]] = '+'
+
+    while queue:
+        pop = queue.pop(0)
+        row = pop[0]
+        col = pop[1]
+        steps = pop[2]
+        
+        if (row == 0 or row == m - 1 or col == 0 or col == n - 1) and [row, col] != entrance:
+            return steps
+            
+        directions = [[0, 1], [1, 0], [0, -1], [-1, 0]]
+        
+        for i in range(len(directions)):
+            nextRow = row + directions[i][0]
+            nextCol = col + directions[i][1]
+            
+            if 0 <= nextRow < m and 0 <= nextCol < n and maze[nextRow][nextCol] == '.':
+                maze[nextRow][nextCol] = '+'
+                queue.append((nextRow, nextCol, steps + 1))
+                
+    return -1
+
+
+maze = [["+","+",".","+"],[".",".",".","+"],["+","+","+","."]]
+entrance = [1,2]
+print(nearestExit(maze, entrance))
+
+maze = [["+","+","+"],[".",".","."],["+","+","+"]]
+entrance = [1,0]
+print(nearestExit(maze, entrance))
+
+maze = [[".","+"]]
+entrance = [0,0]
+print(nearestExit(maze, entrance))
