@@ -1,0 +1,15 @@
+def removeStars(s):
+    stack = []
+
+    letters = list(s)
+
+    for i in range(len(letters)):
+        if letters[i] != "*":
+            stack.append(letters[i])
+        else:
+            stack.pop()
+    
+    return "".join(stack)
+
+s = "leet**cod*e"
+print(removeStars(s))
