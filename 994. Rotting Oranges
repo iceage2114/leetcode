@@ -1,0 +1,60 @@
+def orangesRotting(grid):
+    m = len(grid)
+    n = len(grid[0])
+    visited = grid
+    queue = []
+    count = 0
+    
+    for i in range(m):
+        for j in range(n):
+            if visited[i][j] == 2:
+                queue.append((i, j))
+            if visited[i][j] == 1:
+                count += 1
+                
+    if count == 0:
+        return 0
+    if not queue:
+        return -1
+    
+    minutes = -1
+    directions = [(1, 0), (-1, 0), (0, -1), (0, 1)]
+    
+    while queue:
+        size = len(queue)
+        while size > 0:
+            row, col = queue.pop(0)
+            size -= 1
+            for i in range(len(directions)):
+                x, y = directions[i]
+                
+                nextX = x + row
+                nextY = y + col
+                
+                if 0 <= nextX < m and 0 <= nextY < n and visited[nextX][nextY] == 1:
+                    visited[nextX][nextY] = 2
+                    count -= 1
+                    queue.append((nextX, nextY))
+                    
+        minutes += 1
+    
+    if count == 0:
+        return minutes
+    return -1
+
+
+def orangesRotting2(grid):
+    m = len(grid)
+    n = len(grid[0])
+    visited = set()
+
+    for row in range(m):
+        for col in range(n):
+            if grid[row][col] == 2:
+                pass
+
+grid = [[2,1,1],[1,1,0],[0,1,1]]
+print(orangesRotting(grid))
+
+grid = [[2,1,1],[0,1,1],[1,0,1]]
+print(orangesRotting(grid))
