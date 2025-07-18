@@ -1,0 +1,38 @@
+def minEatingSpeed(piles, h):
+    left = 1
+    right = max(piles)
+    minSpeed = right
+
+    while left < right:
+        mid = (left + right) // 2
+        eatTime = eat(piles, mid)
+        
+        if eatTime <= h:
+            right = mid
+        else:
+            left = mid + 1
+
+    return left
+
+def eat(piles, k):
+    count = 0
+    
+    for i in range(len(piles)):
+        count += (piles[i] + k - 1) // k
+    
+    return count
+
+
+
+piles = [3,6,7,11]
+h = 8
+print(minEatingSpeed(piles, h))
+
+piles = [30,11,23,4,20]
+h = 5
+print(minEatingSpeed(piles, h))
+
+piles = [30,11,23,4,20]
+h = 6
+print(minEatingSpeed(piles, h))
+
