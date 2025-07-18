@@ -1,0 +1,47 @@
+def tribonacci(n):
+    if n == 0:
+        return 0
+    if n < 2:
+        return 1
+        
+    table = [0] * (n + 1)
+
+    table[0] = 0
+    table[1] = 1
+    table[2] = 1
+
+    for i in range(3, len(table)):
+        table[i] = table[i - 1] + table[i - 2] + table[i - 3]
+
+    print(table)
+    return table[n]
+
+
+def trib2(n):
+    if n == 0:
+        return 0
+    if n < 2:
+        return 0
+
+    table = [0] * (n + 1)
+
+    table[0] = 0
+    table[1] = 1
+
+    for i in range(1, len(table)):
+        if i + 1 < len(table):
+            table[i + 1] += table[i]
+        if i + 2 < len(table):
+            table[i + 2] += table[i]
+        if i + 3 < len(table):
+            table[i + 3] += table[i]
+
+    print(table)
+            
+
+n = 4
+print(tribonacci(n))
+
+n = 4
+print(trib2(n))
+        
