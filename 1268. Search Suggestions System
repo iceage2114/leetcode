@@ -1,0 +1,32 @@
+def suggestedProducts(products, searchWord):
+    toReturn = []
+    products.sort()
+
+    left = 0
+    right = len(products) - 1
+
+    for i in range(len(searchWord)):
+        char = searchWord[i]
+
+        # product doesnt have ith char or ith char doesnt match
+        while left <= right and (len(products[left]) <= i or products[left][i] != char):
+            left += 1
+        while left <= right and (len(products[right]) <= i or products[right][i] != char):
+            right -= 1
+
+        toReturn.append([])
+        remaining = right - left + 1
+    
+        for j in range(min(3, remaining)):
+            toReturn[-1].append(products[left + j])
+
+    return toReturn
+
+
+products = ["mobile","mouse","moneypot","monitor","mousepad"]
+searchWord = "mouse"
+print(suggestedProducts(products, searchWord))
+
+products = ["havana"]
+searchWord = "havana"
+print(suggestedProducts(products, searchWord))
