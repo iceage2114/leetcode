@@ -1,0 +1,61 @@
+def predictPartyVictory(senate):
+    senate = list(senate)
+    gameOver = False
+    
+
+    while not gameOver and len(senate) > 0:
+        allSame = True
+        current = senate[0]
+        count = 1
+        length = len(senate)
+        
+        for i in range(1, len(senate)):
+            if count == 0:
+                current = senate[i]
+                count = 1
+                senate.append(senate[i])
+            elif senate[i] == current:
+                senate.append(senate[i])
+                count += 1
+            else:
+                count -= 1
+
+        senate = senate[length:]
+        
+        if count == len(senate) + 1:
+            break
+
+    if current == "R":
+        return "Radiant"
+    
+    return "Dire"
+
+def predictPartyVictory2(senate):
+    r = []
+    d = []
+    length = len(senate)
+
+    for i in range(length):
+        if senate[i] == 'R':
+            r.append(i)
+        else:
+            d.append(i)
+
+    while r and d:
+        r1 = r.pop(0)
+        d1 = d.pop(0)
+
+        if r1 < d1:
+            r.append(r1 + length)
+        else:
+            d.append(d1 + length)
+
+    if r:
+        return "Radiant"  
+    return "Dire"
+
+senate = "RDD"
+print(predictPartyVictory(senate))
+
+senate = "RDDDRDRRD" # dire
+print(predictPartyVictory(senate))
