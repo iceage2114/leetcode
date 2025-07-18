@@ -1,0 +1,37 @@
+def canVisitAllRooms(rooms):
+    keys = rooms[0]
+    unlocked = set()
+    stack = []
+
+    for key in keys:
+        stack.append(key)
+    
+    while stack:
+        key = stack.pop(0)
+        newRoom = []
+
+        if key not in unlocked:
+            newRoom = rooms[key]
+
+        for i in range(len(newRoom)):
+            
+            stack.append(newRoom[i])
+
+        unlocked.add(key)
+
+    if 0 in unlocked:
+        unlocked.remove(0)
+    
+    if len(unlocked) + 1== len(rooms):
+        return True
+    return False
+
+    
+
+
+
+rooms = [[1],[2],[3],[]]
+print(canVisitAllRooms(rooms))
+
+rooms = [[1,3],[3,0,1],[2],[0]]
+print(canVisitAllRooms(rooms))
