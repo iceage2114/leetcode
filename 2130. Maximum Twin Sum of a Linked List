@@ -1,0 +1,25 @@
+def pairSum(head):
+	slow = head
+    fast = head
+	maxVal = 0
+
+	while fast and fast.next:
+		fast = fast.next.next
+		slow = slow.next
+        
+	current = slow
+    prev = None
+
+    while current:
+        temp = current.next   
+        current.next = prev
+        prev = current
+        current = temp
+
+	while prev:
+		maxVal = max(maxVal, head.val + prev.val)
+		prev = prev.next
+		head = head.next
+
+	return maxVal
+
