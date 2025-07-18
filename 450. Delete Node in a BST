@@ -1,0 +1,29 @@
+def deleteNode(root, key):
+    if not root:
+        return None
+    
+    if key < root.val:
+        root.left = deleteNode(root.left, key)
+    elif key > root.val:
+        root.right = deleteNode(root.right, key)
+    else:
+        if not root.left and not root.right:
+            return None
+        
+        if not root.left:
+            return root.right
+        if not root.right:
+            return root.left
+            
+        smallest = findMin(root.right)
+        
+        root.val = smallest.val
+        
+        root.right = deleteNode(root.right, smallest.val)
+    
+    return root
+
+def findMin(node):
+    while node.left:
+        node = node.left
+    return node
