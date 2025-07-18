@@ -1,0 +1,49 @@
+def asteroidCollision2(asteroids):
+    stack = [asteroids[0]]
+
+    for i in range(1, len(asteroids)):
+        if asteroids[i] < 0:
+            last = stack.pop()
+            if last > 0:
+                pass
+
+                
+def asteroidCollision(asteroids):
+
+    aster = asteroids
+    stack = []
+    
+    while len(aster) > 0:
+        left = aster.pop()
+
+        if len(stack) == 0:
+            stack.append(left)
+            continue
+            
+        right = stack.pop()
+
+        if left > 0 and right < 0:
+            if abs(left) > abs(right):
+                aster.append(left)
+            elif abs(left) < abs(right):
+                stack.append(right)
+        else:
+            stack.append(right)
+            stack.append(left)
+
+    stack.reverse()
+    
+    return stack
+
+
+
+asteroids = [5,10,-5]
+print(asteroidCollision(asteroids))
+
+asteroids = [10,2,-5]
+print(asteroidCollision(asteroids))
+
+asteroids = [-2,-1,1,2]
+print(asteroidCollision(asteroids))
+
+
