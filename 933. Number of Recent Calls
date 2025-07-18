@@ -1,0 +1,25 @@
+class RecentCounter:
+
+    def __init__(self):
+        self.requests = []
+
+    def ping(self, t):
+        self.requests.append(t)
+        
+        length = t - 3000
+        
+        left = 0
+        right = len(self.requests)
+        
+        while left < right:
+            mid = (left + right) // 2
+            
+            if self.requests[mid] < length:
+                left = mid + 1
+            else:
+                right = mid
+        
+        self.requests = self.requests[left:]
+        
+        return len(self.requests)
+
