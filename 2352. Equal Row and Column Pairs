@@ -1,0 +1,37 @@
+def equalPairs(grid):
+    length = len(grid)
+    count = 0
+    
+    for i in range(length):
+        for j in range(length):
+            match = True
+            for k in range(length):
+                if grid[i][k] != grid[k][j]:
+                    match = False
+                    break
+            if match:
+                count += 1
+    return count
+
+def equalPairs2(grid):
+    count = 0
+    n = len(grid)
+
+    row = {}
+
+    for i in range(n):
+        row[tuple(grid[i])] = 1 + row.get(tuple(grid[i]), 0)
+    
+    for c in range(n):
+        col = [grid[i][c] for i in range(n)]
+        if tuple(col) in row:
+            count += row[tuple(col)]
+    
+    return count
+
+
+grid = [[3,2,1],[1,7,6],[2,7,7]]
+print(equalPairs2(grid))
+
+grid = [[3,1,2,2],[1,4,4,5],[2,4,2,2],[2,4,2,2]]
+print(equalPairs2(grid))
