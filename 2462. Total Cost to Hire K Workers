@@ -1,0 +1,39 @@
+from heapq import heappush, heappop
+
+def totalCost(costs, k, candidates):
+    priorityQueue = []
+    length = len(costs)
+  
+    leftBound = candidates - 1
+    rightBound = length - candidates
+  
+    for index in range(candidates):
+        priorityQueue.append((costs[index], index))
+  
+    for index in range(length - candidates, length):
+        if index > leftBound:
+            priorityQueue.append((costs[index], index))
+  
+    heapify(priorityQueue)
+  
+    total = 0
+  
+    # retrieve smallest costs k times
+    for _ in range(k):
+        # extract the candidate with smallest cost
+        cost, index = heappop(priorityQueue)
+        total += cost
+      
+        # if selected from the left side we need to move the left boundary right
+        if index <= leftBound:
+            leftBound += 1
+            if leftBound < rightBound:
+                heappush(priorityQueue, (costs[leftBound], leftBound))
+      
+        # if selected from the right side we need to move the right boundary left
+        if index >= rightBound:
+            rightBound -= 1
+            if leftBound < rightBound:
+                heappush(priorityQueue, (costs[rightBound], rightBound))
+  
+    return total
