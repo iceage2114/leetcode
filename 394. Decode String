@@ -1,0 +1,137 @@
+def decodeString(s):
+    def decode(array):
+        stack = array
+        current = []
+        
+        while len(stack) > 0:
+            while stack[len(stack) - 1] == "]":
+                stack.pop()
+                
+            current = []
+            while stack[len(stack) - 1] != "[":
+                current.append(stack.pop())
+            current.reverse()
+            stack.pop()
+        
+            count = 0
+            place = 1
+            
+            while len(stack) > 0 and stack[len(stack) - 1].isnumeric():
+                count += (int(stack.pop()) * place)
+                place *= 10
+        
+            for i in range(count):
+                stack = stack + current
+        
+            if not stack[0].isnumeric():
+                break
+        return stack
+        
+    array = list(s)
+    stack = []
+    
+    toReturn = []
+    
+    for i in range(len(array)):
+        if array[i] != "]":
+            stack.append(array[i])
+        else:
+            result = decode(stack)
+
+            toReturn = toReturn + result
+            stack = []
+
+    toAdd = []
+    for i in range(len(array) - 1, -1, -1):
+        if array[i] == "]":
+            break
+        toAdd.append(array[i])
+    toAdd.reverse()
+        
+
+    return "".join(toReturn + toAdd)
+
+def decodeString2(s):
+    stack = []
+    current = ""
+    num = 0
+
+    for i in range(len(s)):
+        
+        if s[i].isnumeric():
+            num = num * 10 + int(s[i])
+            
+        elif s[i] == '[':
+            stack.append((current, num))
+            current = ""
+            num = 0
+            
+        elif s[i] == ']':
+            pop = stack.pop()
+            string = pop[0]
+            count = pop[1]
+            current = string + current * count
+            
+        else:
+            current += s[i]
+
+    return current
+
+def decodeString3(s):
+    s = list(s)
+    while True:
+        found = find(s)
+        index = found[0]
+        toAdd = found[1]
+        if index is None:
+            break
+        s = replace(s, index, toAdd)
+        
+    return ''.join(s)
+
+def find(array):
+    stack = []
+    
+    for i in range(len(array) - 1, -1, -1):
+        if array[i] == ']':
+            stack.append(i)
+        elif array[i] == '[' and stack:
+            start = i
+            end = stack.pop()
+            numStart = start - 1
+            
+            while numStart >= 0 and array[numStart].isnumeric():
+                numStart -= 1
+                
+            numStart += 1
+            
+            if numStart < start:
+                num = int(''.join(array[numStart:start]))
+                string = array[start + 1:end]
+                return numStart, (num, string)
+                
+    return (None, None)
+
+def replace(array, index, pattern):
+    num = pattern[0]
+    string = pattern[1]
+    end = index
+    
+    while end < len(array) and array[end] != ']':
+        end += 1
+        
+    toAdd = string * num
+    array[index:end + 1] = list(toAdd)
+    
+    return array
+    
+
+
+
+s = "3[a]2[bc]"
+print(decodeString3(s))
+# "aaabcbc"
+
+s = "3[z]2[2[y]pq4[2[jk]e1[f]]]ef"
+print(decodeString3(s))
+# "zzzyypqjkjkefjkjkefjkjkefjkjkefyypqjkjkefjkjkefjkjkefjkjkefef"
