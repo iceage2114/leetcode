@@ -1,0 +1,32 @@
+def findCircleNum(isConnected):
+    length = len(isConnected)
+    visited = [False] * length
+    count = 0
+
+    for i in range(length):
+        if not visited[i]:
+            explore(i, isConnected, visited)
+            count += 1
+
+    return count
+
+def explore(node, isConnected, visited):
+    visited[node] = True 
+    
+    for i in range(len(isConnected)):
+        if isConnected[node][i] == 1 and not visited[i]:
+            explore(i, isConnected, visited)
+
+
+
+isConnected = [[1,1,0],[1,1,0],[0,0,1]]
+print(findCircleNum(isConnected))
+
+
+isConnected = [[1,0,0],[0,1,0],[0,0,1]]
+print(findCircleNum(isConnected))
+
+
+
+
+            
