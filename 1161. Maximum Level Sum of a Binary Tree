@@ -1,0 +1,40 @@
+class TreeNode(object):
+     def __init__(self, val=0, left=None, right=None):
+         self.val = val
+         self.left = left
+         self.right = right
+
+def maxLevelSum(root):
+    maxSum = -float('inf')
+    level = 0
+    maxLevel = 0
+    queue = []
+    queue.append(root)
+    
+    while queue:
+        level += 1
+        currentSum = 0
+        
+        for i in range(len(queue)):
+            node = queue.pop(0)
+            currentSum += node.val
+            
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+                
+        if maxSum < currentSum:
+            maxSum = currentSum
+            maxLevel = level
+            
+    return maxLevel
+
+
+tree = TreeNode(1)
+tree.left = TreeNode(7)
+tree.right = TreeNode(0)
+tree.left.left = TreeNode(7)
+tree.left.right = TreeNode(-8)
+
+print(maxLevelSum(tree))
